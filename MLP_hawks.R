@@ -29,9 +29,9 @@ sigmoid_derivative<-function(x) return (x*(1-x))
 
 # variable initialization
 learning_rate=0.001
-epochs=1000
+epochs=500
 inputlayer_neurons=ncol(X)
-hiddenlayer_neurons=1 
+hiddenlayer_neurons=15 #by increasing the hidden layers the model becomes 'multi-layer'
 outputlayer_neurons=1
 
 #initializing model parameters (random weights and bias)
@@ -95,3 +95,25 @@ for(i in 1:epochs){
 }
 
 output
+
+#Attempting cross validation on MLP
+cat("
+hawksOmit[sapply(hawksOmit, is.factor)] <- data.matrix(hawksOmit[sapply(hawksOmit, is.factor)])
+results <- train(
+  validationX = hawksOmit[,1:4],       # input features
+  validationY = hawksOmit[,5],         # target variable
+  method = mlp_model(output),  # gradient descent function
+  trControl = trainControl(
+    method = cv,        # Use cross validation
+    number = 5            # Use 5 folds
+  ),
+  gridTuning = expand.grid(
+    inputlayer_neurons = 4,   # input neurons
+    hiddenlayer_neurons = 15, # hidden neurons
+    outputlayer_neurons = 1,  # output neurons
+    epochs = 500,             # number of epochs
+    learning_rate = 0.1       # learning rate
+  )
+)
+head(validationX)
+head(validationY)")

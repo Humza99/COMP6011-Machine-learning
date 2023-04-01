@@ -53,7 +53,10 @@ source("Perceptron.r")
 source("Evaluation_Cross_Validation.r")
 source("Evaluation_Validation.r")
 source("Evaluation_Curves.r")
-source("MLP_hawks.r")
+#unhash the model that is being used
+#source("MCP_hawks.r") 
+#source("MLP_hawks.r")
+
 
 
 #Hold out 1/3 rd validation data set
@@ -68,7 +71,7 @@ nrow(hawksOmit_validation)
 p_model <- Perceptron(0.001)
 
 #Set number of epochs (iterations)
-num_of_epochs <- 100 #Ideally, run with 1000 number of epochs but 1000 takes considerable amount (>10 min) to train
+num_of_epochs <- 500 #Ideally, run with 1000 number of epochs but 1000 takes considerable amount (>10 min) to train
 
 #plot Learning Curve - Accuracy vs Training Sample size
 plot_learning_curve(p_model, hawksOmit_train, hawksOmit_validation, number_of_iterations = num_of_epochs)
